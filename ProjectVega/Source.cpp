@@ -2,6 +2,7 @@
 #include <conio.h>
 #include <cmath>
 #include <fstream>
+#include <iomanip>
 
 #include "Header.h"
 
@@ -34,21 +35,44 @@ void Function::out()
 	outf << "Точки интерополяции для n=" << n << endl;
 	for (int i = 0; i <= n; i++)
 	{
-		outf << "X" << i << "=" << znaX[i] << " ";
+		outf << setprecision(19) << "X" << i << "=" <<znaX[i] << " ";
 	}
 	outf << endl;
 }
 
 void Function::slay()
 {
-	for (int i = 0; i <= n; i++)
+	double buf = 0;
+	int i=0,i0=0,i1=0;// переменные для работы циклов 
+	for (i = 0; i <= n; i++) 
 	{
-		matrix[i][0] = 1.0;
-		for (int ii = 1; ii <= n; ii++)
+		matrix[i][0] = znaX[i];
+		for (i0 = 1; i0 <= n; i0++)
 		{
-			matrix[i][ii] = matrix[i][ii - 1] * znaX[i];
+			matrix[i][i0] = matrix[i][i0 - 1] * znaX[i];
 		}
-		matrix[i][i + 1] = znaY[i];
+		matrix[i][i0] = znaY[i];
 	}
+	i = 0; i0 = 0;
+
+	for ( i = 0; i <= n-1; i++)// Строка с которой работаем 
+	{
+		buf = matrix[i][i];
+		for ( i0 = i; i0 <= n+1; i0++)//исключаем неизвестную i-того номера
+		{
+			matrix[i][i0] = matrix[i][i0]/buf;
+		}
+
+		for (i0 = i + 1; i0 <= n + 1; i0++)//делим другие строки //номер строки с которой работаем
+		{
+			buf = matrix[i0][i];
+			for (i1 = i; i1 < n + 1; i1++)// номер столбца
+			{
+				matrix[i0][i1] = matrix[i0][i1]-(matrix[0][i1]*buf) ;
+			}
+		}
+
+	}
+
 
 }
