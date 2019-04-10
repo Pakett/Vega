@@ -3,11 +3,12 @@
 
 class Function
 {
-	long double a, b, n;
-	long double znaX[10], znaY[10], matrix[10][10];
+	long double a, b;
+	int n;
+	long double znaX[7], znaY[7], matrix[7][8];
 
 	public:
-		Function(long double z, long double x, long double c);
+		Function(long double z, long double x, int c);
 		void chebeshev();
 		void out();
 		void slay();

@@ -1,3 +1,2 @@
-﻿  Source.cpp
-d:\git\vega\projectvega\source.cpp(80): warning C4244: =: преобразование "long double" в "int", возможна потеря данных
+﻿  Maincpp.cpp
   ProjectVega.vcxproj -> D:\Git\Vega\x64\Debug\ProjectVega.exe

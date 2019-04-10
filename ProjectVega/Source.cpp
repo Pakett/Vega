@@ -12,7 +12,7 @@ using namespace std;
 
 ofstream outf("vivod.txt");
 
-Function::Function(long double z, long double x, long double c)
+Function::Function(long double z, long double x, int c)
 {
 	a = z; b = x; n = c;
 	
@@ -37,7 +37,14 @@ void Function::out()
 	{
 		outf << setprecision(19) << "X" << i << "=" <<znaX[i] << " ";
 	}
-	outf << endl;
+	outf << endl << endl;
+
+	outf << "Корни многочлена Лангранджа для n=" << n << endl;
+	for (int i = 0; i <= n; i++)
+	{
+		outf << setprecision(10) << "a" << i << "=" << matrix[i][n+1] << " ";
+	}
+	outf << endl << endl << endl;
 }
 
 void Function::slay()
@@ -71,27 +78,22 @@ void Function::slay()
 			buf = matrix[i0][i];
 			for (i1 = i; i1 <= n + 1; i1++)// номер столбца
 			{
-				matrix[i0][i1] = matrix[i0][i1]-(matrix[0][i1]*buf) ;
+				matrix[i0][i1] = matrix[i0][i1]-(matrix[i][i1]*buf) ;
 			}
 		}
 
 	}
 	//обратный ход метода Гаусаа
+	buf = matrix[n][n];
+	matrix[n][n] = 1; 
+	matrix[n][n + 1] = matrix[n][n + 1] / buf;
 	for (i=n;i>=1;i--)
 	{
-		buf = matrix[i][i];
-		for (i0 = i; i0 <= n + 1; i0++)//исключаем неизвестную i-того номера
-		{
-			matrix[i][i0] = matrix[i][i0] / buf;
-		}
-
 		for (i0 = i-1; i0 >= 0; i0--)//делим другие строки //номер строки с которой работаем
 		{
 			buf = matrix[i0][i];
-			for (i1 = i; i1 <= n + 1; i1++)// номер столбца
-			{
-				matrix[i0][i1] = matrix[i0][i1] - (matrix[0][i1] * buf);
-			}
+			matrix[i0][i] = matrix[i0][i]-(matrix[i][i]*buf);
+			matrix[i0][n + 1] = matrix[i0][n + 1] - (matrix[i0][n + 1] * buf);
 		}
 	}
 }
