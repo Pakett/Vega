@@ -5,7 +5,7 @@ class Function
 {
 	long double a, b;
 	int n;
-	long double znaX[7], znaY[7], matrix[7][8];
+	long double znaX[7], znaY[7], matrix[6][7];
 
 	public:
 		Function(long double z, long double x, int c);

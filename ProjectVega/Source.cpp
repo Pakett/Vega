@@ -1,7 +1,6 @@
 #include <iostream>
-#include <conio.h>
-#include <cmath>
 #include <fstream>
+#include <cmath>
 #include <iomanip>
 
 #include "Header.h"
@@ -32,17 +31,17 @@ void Function::chebeshev()
 }
 void Function::out()
 {
-	outf << "Точки интерополяции для n=" << n << endl;
+	outf << "Точки интерполяции Чебышева для n=" << n << endl;
 	for (int i = 0; i <= n; i++)
 	{
-		outf << setprecision(19) << "X" << i << "=" <<znaX[i] << " ";
+		outf << setprecision(19) << "X" << i << "=" <<znaX[i] << "___Y"<< i <<"="<<znaY[i] <<"\n ";
 	}
 	outf << endl << endl;
 
-	outf << "Корни многочлена Лангранджа для n=" << n << endl;
+	outf << "Коэффициенты многочлена Лагранжа для n=" << n << endl;
 	for (int i = 0; i <= n; i++)
 	{
-		outf << setprecision(10) << "a" << i << "=" << matrix[i][n+1] << " ";
+		outf << setprecision(19) << "a" << i << "=" << matrix[i][n+1] << "\n";
 	}
 	outf << endl << endl << endl;
 }
@@ -83,17 +82,21 @@ void Function::slay()
 		}
 
 	}
+
 	//обратный ход метода Гаусаа
 	buf = matrix[n][n];
 	matrix[n][n] = 1; 
 	matrix[n][n + 1] = matrix[n][n + 1] / buf;
+
 	for (i=n;i>=1;i--)
 	{
+		
 		for (i0 = i-1; i0 >= 0; i0--)//делим другие строки //номер строки с которой работаем
 		{
 			buf = matrix[i0][i];
-			matrix[i0][i] = matrix[i0][i]-(matrix[i][i]*buf);
-			matrix[i0][n + 1] = matrix[i0][n + 1] - (matrix[i0][n + 1] * buf);
+			matrix[i0][i] = matrix[i0][i] - (matrix[i][i] * buf);
+			matrix[i0][n + 1] = matrix[i0][n + 1] - (matrix[i][n + 1] * buf);		
 		}
 	}
 }
+

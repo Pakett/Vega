@@ -1,7 +1,6 @@
-#include <conio.h>
 #include <iostream>
+#include <locale.h>
 #include <cmath>
-#include <fstream>
 
 #include "Header.h"
 
